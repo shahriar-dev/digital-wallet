@@ -7,7 +7,7 @@ $TransferredOn = "";
 
 define("filepath", "data.txt");
 $retrievedData = json_decode(file_get_contents(filepath));
-$TotalRecords = sizeof($retrievedData);
+$TotalRecords = count($retrievedData);
 
 
 ?>
@@ -40,7 +40,7 @@ $TotalRecords = sizeof($retrievedData);
         </table>
     </span>
 
-    <h3>Total Records: (<?php $TotalRecords ?>)</h3>
+    <?php echo "<h3>Total Records:(" . $TotalRecords . ")</h3>" ?>
 
     <table>
         <tr>
@@ -49,19 +49,16 @@ $TotalRecords = sizeof($retrievedData);
             <th>Amount</th>
             <th>Transferred On</th>
         </tr>
-        <tr>
-            <?php
-            if ($retrievedData != null) {
-                foreach ($retrievedData as $obj) {
-                    echo '<td>' . $obj->{'Type'} . '</td>
+        <?php
+        if ($retrievedData != null) {
+            foreach ($retrievedData as $obj) {
+                echo '<tr> <td>' . $obj->{'Type'} . '</td>
                         <td>' . $obj->{'To'} . '</td>
                         <td>' . $obj->{'Amount'} . '</td>
-                        <td>' . $obj->{'Time'} . '</td>';
-                }
+                        <td>' . $obj->{'Time'} . '</td></tr>';
             }
-            ?>
-
-        </tr>
+        }
+        ?>
     </table>
 </body>
 

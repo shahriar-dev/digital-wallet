@@ -105,9 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         }
 
         if (!$EmptyField) {
-            $d = strtotime("today");
+            //$d = strtotime("today");
             $data = array(
-                "Type" => $Default, "To:" => $PhoneNumber, "Amount" => $Amount, "Time" => date("Y-m-d h:i:sa", $d)
+                "Type" => $Default, "To" => $PhoneNumber, "Amount" => $Amount, "Time" => date("Y-m-d h:i:sa")
             );
 
             if (file_get_contents(filepath) != null) {
