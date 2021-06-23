@@ -5,6 +5,7 @@ $PhoneNumber = "";
 $PhoneNumberError = "";
 $Amount = "";
 $AmountError = "";
+$Default = "Select a Value";
 
 $EmptyField = false;
 define("filepath", "data.txt");
@@ -24,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $EmptyField = true;
         }
         if ($CategoryType == "Send Money") {
+            $Default = "Send Money";
             if (empty($_POST["phoneNumber"])) {
                 $PhoneNumberError = "You must enter a PHONE NUMBER!";
                 $EmptyField = true;
@@ -49,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 }
             }
         } else if ($CategoryType == "Recharge") {
+            $Default = "Recharge";
             if (empty($_POST["phoneNumber"])) {
                 $PhoneNumberError = "You must enter a PHONE NUMBER!";
                 $EmptyField = true;
@@ -73,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 }
             }
         } elseif ($CategoryType == "Merchent Pay") {
+            $Default = "Pay Merchant";
             if (empty($_POST["phoneNumber"])) {
                 $PhoneNumberError = "You must enter a PHONE NUMBER!";
                 $EmptyField = true;
@@ -103,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         if (!$EmptyField) {
             $d = strtotime("today");
             $data = array(
-                "Type" => $Category, "To:" => $PhoneNumber, "Amount" => $Amount, "Time" => date("Y-m-d h:i:sa", $d)
+                "Type" => $Default, "To:" => $PhoneNumber, "Amount" => $Amount, "Time" => date("Y-m-d h:i:sa", $d)
             );
 
             if (file_get_contents(filepath) != null) {
@@ -168,8 +172,8 @@ function Test_User_Input($Data)
             <span>
                 <label for="selected_category">Select Catergory:</label>
 
-                <select name="selected_option" id="selected_category" value="">
-                    <option default>Select a Value</option>
+                <select name="selected_option" id="selected_category" value="<?php echo $Default; ?>">
+                    <option default><?php echo $Default; ?></option>
                     <option name="option_sendMoney">Send Money</option>
                     <option name="option_rechargeMoney">Recharge</option>
                     <option name="option_payMarchent">Merchent Pay</option>
